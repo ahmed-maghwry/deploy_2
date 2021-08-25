@@ -1,0 +1,201 @@
+
+{% extends 'base_ads.html' %}
+{% load static %}
+
+
+{% block card %}
+
+
+</section>
+
+
+
+<section class="py-5 my-card-sec" id="all">
+  <div class="container text-center" id="target_page">
+
+    <nav class="my-nav-tap">
+      <div class="nav nav-tabs my-tap-all" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link my-taps active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+          aria-controls="nav-home" aria-selected="true"> Home</a>
+        <a class="nav-item nav-link my-taps cat_nav" cat_id="50" id="nav-Mobile-tab" data-toggle="tab" href="#all-cat" role="tab"
+          aria-controls="nav-Mobile" href="#" aria-selected="false">Mobile Phones & Accessories</a>
+
+        <a class="nav-item nav-link my-taps cat_nav" cat_id="112" id="nav-clothes-tab" data-toggle="tab" href="#all-cat" role="tab"
+          aria-controls="nav-clothes" aria-selected="false">clothes</a>
+
+
+        <a class="nav-item nav-link my-taps cat_nav" cat_id="113" id="nav-Appliances-tab" data-toggle="tab" href="#all-cat" role="tab"
+          aria-controls="nav-Appliances" aria-selected="false">Appliances</a>
+
+        <a class="nav-item nav-link my-taps cat_nav" cat_id="53" id="nav-Electronic-tab" data-toggle="tab" href="#all-cat" role="tab"
+          aria-controls="nav-Electronic" aria-selected="false">Electronic Devices</a>
+
+        <a class="nav-item nav-link my-taps cat_nav" cat_id="115" id="nav-Sports-tab" data-toggle="tab" href="#all-cat" role="tab"
+          aria-controls="nav-Sports" aria-selected="false">Sports & Hobbies</a>
+
+        <a class="nav-item nav-link my-taps cat_nav" cat_id="43" id="nav-Vehicles-tab" data-toggle="tab" href="#all-cat" role="tab"
+          aria-controls="nav-Vehicles" aria-selected="false">Vehicles</a>
+
+        <a class="nav-item nav-link my-taps cat_nav" cat_id="116" id="nav-Pets-tab" data-toggle="tab" href="#all-cat" role="tab"
+          aria-controls="nav-Pets" aria-selected="false">Pets - Accessories</a>
+
+        <a class="nav-item nav-link my-taps cat_nav" cat_id="117" id="nav-Furniture-tab" data-toggle="tab" href="#all-cat" role="tab"
+          aria-controls="nav-Furniture" aria-selected="false">Home Furniture</a>
+
+        <a class="nav-item nav-link my-taps cat_nav" cat_id="118" id="nav-Babies-tab" data-toggle="tab" href="#all-cat" role="tab"
+          aria-controls="nav-Babies" aria-selected="false">Babies & Kids</a>
+
+        <a class="nav-item nav-link my-taps cat_nav" cat_id="111" id="nav-Properties-tab" data-toggle="tab" href="#all-cat" role="tab"
+          aria-controls="nav-Properties" aria-selected="false">Properties</a>
+
+        <a class="nav-item nav-link my-taps cat_nav" cat_id="114" id="nav-Services-tab" data-toggle="tab" href="#all-cat" role="tab"
+          aria-controls="nav-Services" aria-selected="false">Services</a>
+
+      </div>
+    </nav>
+    <div class="tab-content my-content" id="nav-tabContent">
+      <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <table>
+            <form action=" {% url 'ads:all_ads' %}#all"> 
+              <li><label for="id_order_by_options">Order by options:</label> <select name="order_by_options" onchange="this.form.submit();" id="id_order_by_options">
+                <option value="create_date" {% if order_by_data == 'create_date' %}selected{% endif %}>date_up</option>
+              
+                <option value="-create_date"{% if order_by_data == '-create_date' %}selected{% endif %}>date_down</option>
+              
+                <option value="price" {% if order_by_data == 'price' %}selected{% endif %}>price_up</option>
+              
+                <option value="-price"{% if order_by_data == '-price' %}selected{% endif %}>price_down</option>
+              
+                <option value="title" {% if order_by_data == 'title' %}selected{% endif %}>title_up</option>
+              
+                <option value="-title"{% if order_by_data == '-title' %}selected{% endif %}>title_down</option>
+              
+              </select></li> </form>
+          
+        </table>
+        <br>
+        <div class="row">         
+          {% for ad in ads_all %}
+
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 my-card-respon ">
+            <div class="card my-card">
+              <img src="{{ad.img.url}}" class="card-img-top my-card-img" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{ad.title}}</h5>
+                <p class="card-text">{{ad.description|truncatewords:3}}</p>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">it is for || {{ ad.ad_option }}</li>
+                <!-- <li class="list-group-item">cat || {{ ad.main }}</li> -->
+              </ul>
+              <div class="card-body">
+                <a class="btn btn-primary" href="{% url 'ads:ads_detail' ad.id  %}#con"  role="button">know More</a>
+                {% if user.is_authenticated %}
+                {% if ad not in user_favoret or not user_favoret %}
+                <a class="btn btn-primary add_favoret " style="width: 27%; color: white;" ad_id2="{{ ad.id }}" ajax_href="{% url 'user_profile:favoret'%}"  role="button">Favorite</a>
+                {% else %}
+                <a class="btn btn-danger add_favoret" style="width: 35%; color: white;" ad_id2="{{ ad.id }}" ajax_href="{% url 'user_profile:favoret'%}"  role="button">Favorite</a>
+                {% endif %}
+                {% endif %}
+                <a class="btn btn-success" href="{% url 'ads:edit_ads' ad.id %}" role="button">Edit !</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <!-- ###################################################   start Pagination     ######################             -->
+        {% if ads_all.has_other_pages %}
+        <nav class="p-2 my-Pagination" aria-label="Pagination">
+          <ul class="pagination justify-content-center mb-0 flex-wrap"> 
+            {% if ads_all.has_previous  %}
+              <li class="page-item "><a class="page-link" href="?{% if order_by_data %}order_by_options={{order_by_data}}{% endif %}&page=1#target_page">First</a></li>
+              <li class="page-item "><a class="page-link" href="?{% if order_by_data %}order_by_options={{order_by_data}}{% endif %}&page={{ ads_all.previous_page_number }}#target_page">Previous</a></li>
+            {% else %}
+              <li class="page-item disabled" style="cursor: not-allowed;" ><a class="page-link" href="#">First</a></li>
+              <li class="page-item disabled" style="cursor: not-allowed;" ><a class="page-link" href="#">Previous</a></li>
+            {% endif %}
+            {% for ads_page in ads_all.paginator.page_range %}
+            {% if ads_all.number == ads_page %}
+            <li class="page-item active "><a class="page-link" >{{ads_page}}</a></li>
+            {% elif ads_page > ads_all.number|add:'-4' and ads_page < ads_all.number|add:'4' %}
+            <li class="page-item  "><a class="page-link" href="?{% if order_by_data %}order_by_options={{order_by_data}}{% endif %}&page={{ads_page }}#target_page">{{ads_page}}</a></li>
+            <!-- لو الصفحة من اللوب اكبر من الصفحة الفعلية -4 و كمان اصغر من الفحة الفعلية +4  -->
+            {% endif %}
+            {% endfor %}
+            {% if ads_all.has_next %}
+              <li class="page-item"><a class="page-link" href="?{% if order_by_data %}order_by_options={{order_by_data}}{% endif %}&page={{ ads_all.next_page_number }}#target_page">Next</a></li>
+              <li class="page-item"><a class="page-link" href="?{% if order_by_data %}order_by_options={{order_by_data}}{% endif %}&page={{ ads_all.paginator.num_pages }}#target_page">Last </a></li>
+              {% else %}
+              <li class="page-item disabled" style="cursor: not-allowed;" ><a class="page-link" href="#">Next</a></li>
+              <li class="page-item disabled" style="cursor: not-allowed;" ><a class="page-link" href="#">Last</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+
+        <!--  ###################################################   end Pagination     ######################             -->
+      </div>
+
+
+
+      <!-- new tab -->
+
+      
+    <div class="tab-pane fade" id="all-cat" role="tabpanel" aria-labelledby="nav-All-tab">
+         
+        
+
+       <div id="cat_show"></div>
+       </div>
+      
+
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<script src="{% static '../../static/js/jquery/jquery.min.js' %}"></script>
+
+<script>
+
+$(".add_favoret").click(function () {
+    var url = $(this).attr("ajax_href");
+    var ad_id = $(this).attr("ad_id2");
+    var sel="[ad_id2='"+ad_id+"']"
+    $.ajax({
+      url: url ,
+      data: { 'ad_id': ad_id },
+      success: function (data) {
+        // var color_act=$(sel).css('background-color');
+        // console.log(color_act)
+        if ($(sel).hasClass('btn-primary')) {
+          $(sel).removeClass('btn-primary');
+          $(sel).addClass('btn-danger');
+          $(sel).animate({width: "35%",}, {duration: 100,});
+        }
+        else {
+          $(sel).removeClass('btn-danger');
+          $(sel).addClass('btn-primary');
+          $(sel).animate({width: "27%",}, {duration: 100,});
+        }
+      }
+    });
+  });
+
+$(".cat_nav").click(function () {
+    var cat = $(this).attr("cat_id");
+    var target_nav = $(this).attr("href");
+    console.log(target_nav);
+    $.ajax({
+      url: "{% url 'search:by_catugry' %}",
+      data: { 'cat': cat },
+      success: function (data) {
+        $("#cat_show").html(data);
+        
+      }
+    });
+  });
+</script>
+
+{% endblock card %}

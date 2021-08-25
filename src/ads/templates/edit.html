@@ -1,0 +1,133 @@
+{% extends 'base_ads.html' %}
+
+{% load static %}
+{% load bootstrap4 %}
+
+{% block card %}
+
+
+<form method="post" id="adsform" data-url="{% url 'ads:load_sub'%}mkm" enctype="multipart/form-data" novalidate>
+  <div class="row">
+    <div class="col-md-4">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+    </div>
+    {% if signalf == 1 %}
+    <div class="col-md-4" id="change_form">
+      {% bootstrap_form details_form %}
+    </div>
+    {% else %}
+    <div class="col-md-4" id="change_form">
+    </div>
+    {% endif %}
+  </div>
+  {% buttons %}
+  <button type="submit" class="btn btn-primary">Save Ad</button>
+  {% endbuttons %}
+</form>
+
+<script src="{% static '../static/js/jquery/jquery.min.js' %}"></script>
+
+
+<script>
+  var Choose2 = '<option value="">Choose</option>'
+
+
+  $("#id_main").change(function () {
+    var url = $("#adsform").attr("data-url");
+    var url2 = ("{% url 'ads:load_sub'%}")
+    var mainId = $(this).val();
+    var main_form_id = $(this).val();
+    $("#change_form").html('');
+    $("#id_end").html(Choose2);
+    $("#id_last").html(Choose2);
+    $.ajax({
+      url: url2,
+      data: {
+        'main': mainId
+      },
+      success: function (data) {
+        $("#id_sub").html(data);
+
+      }
+    });
+    // ############################################################
+    // ###########################################################
+
+
+  });
+
+  // ############################################################
+  // ###########################################################
+
+  $("#id_sub").change(function () {
+    var subId = $(this).val();
+    var Choose2 = '<option value="">Choose</option>';
+    var url2 = ("{% url 'ads:load_sub'%}");
+    var mainId = $("#id_main").val();
+    var url3 = ("{% url 'ads:change_form'%}");
+    $("#change_form").html('');
+
+    $("#id_last").html(Choose2);
+
+
+    if (subId !== "") {
+      $.ajax({
+        url: url2,
+        data: {
+          'main': mainId,
+          'sub': subId
+        },
+        success: function (data) {
+          $("#id_end").html(data);
+        }
+      });
+    }
+    else {
+      $("#id_last").html(Choose2);
+      $("#id_end").html(Choose2);
+
+    }
+    $.ajax({
+      url: url3,
+      data: {
+        'subId': subId,
+
+      },
+      success: function (data2) {
+        $("#change_form").html(data2);
+        console.log(data2);
+      }
+    });
+
+
+
+  });
+
+  $("#id_end").change(function () {
+    var url = $("#adsform").attr("data-url");
+    var endId = $(this).val();
+    var mainId = $("#id_main").val();
+    var subId = $("#id_sub").val();
+    var url2 = ("{% url 'ads:load_sub'%}");
+
+    if (endId !== "") {
+      $.ajax({
+        url: url2,
+        data: {
+          'main': mainId,
+          'sub': subId,
+          'end': endId
+        },
+        success: function (data) {
+          $("#id_last").html(data);
+        }
+      });
+    }
+    else {
+      $("#id_last").html(Choose2);
+    }
+  });
+</script>
+
+{% endblock card %}

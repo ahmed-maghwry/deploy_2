@@ -1,0 +1,2 @@
+cd../scripts
+activate 

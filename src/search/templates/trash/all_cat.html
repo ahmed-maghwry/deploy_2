@@ -1,0 +1,131 @@
+{% extends 'base_ads.html' %}
+
+{% block main_search %}
+{% load static %}
+
+<section id="con" class="py-3 my-product-detils">
+  <form method="GET" id="searchform" enctype="multipart/form-data" novalidate>
+    <table>
+      
+      {{ general_search_form.as_ul }}
+    </table>
+    <button id="serch" type="button">Search</button>
+    
+    <div id="main_form_search">
+
+
+    </div>
+    
+  </form>
+  <div class="search" id="search_result">
+    <div class="container">
+      <div class="row">
+        {% for ad in main_catugry_q %}
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 my-card-respon ">
+          <div class="card my-card">
+            <img src="{{ad.img.url}}" class="card-img-top my-card-img" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{ ad.title }}</h5>
+              <p class="card-text">{{ ad.description }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">it is for || {{ ad.ad_option }}</li>
+              <li class="list-group-item">cat || {{ ad.main }}</li>
+            </ul>
+            <div class="card-body">
+              <a class="btn btn-primary" href="{% url 'ads:ads_detail' ad.id  %}#con" role="button">know
+                More</a>
+              <a class="btn btn-success" href="{ % url 'ads:edit_ads' ad.id % }" role="button">Edit !</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  var Choose2 = '<option value="">Choose</option>'
+
+  $("#serch").click(function () {
+    var myForm = $('#searchform');
+    var formData = myForm.serialize();
+    var subId = $("#id_sub").val();
+    var mainid = $("#id_sub").val();
+    var thisURL = (" {% url 'search:all_cat'  %} ")
+    $.ajax({
+      method: 'GET',
+      url: thisURL,
+      data: formData ,
+      success: function (data) {
+        $("#search_result").html(data);
+        console.log(data);
+      }
+    });
+  });
+  $("#id_sub").change(function () {
+    var subId = $(this).val();
+    var url2 = ("{% url 'ads:load_sub'%}")
+    var url4 = ("{% url 'search:change_form_search'%}")
+    var mainId = 43;
+    $("#id_last").html(Choose2);
+    if (subId !== "") {
+      $.ajax({
+        url: url2,
+        data: {
+          'main': mainId,
+          'sub': subId,
+        },
+        success: function (data) {
+          $("#id_end").html(data);
+        }
+      });
+      $.ajax({
+      method: 'GET',
+      url: url4,
+      data: {
+        'main': mainId,
+         'subId': subId ,
+      } ,
+      success: function (data) {
+        $("#main_form_search").html(data);
+        $("#search_result").html('');
+        console.log(data);
+      }
+    });
+
+    }
+    else {
+      $("#id_last").html(Choose2);
+      $("#id_end").html(Choose2);
+      $("#main_form_search").html('');
+      $("#search_result").html('');
+    }
+  });
+
+  $("#id_end").change(function () {
+    var url = $("#adsform").attr("data-url");
+    var endId = $(this).val();
+    var subId = $("#id_sub").val();
+    var url2 = ("{% url 'ads:load_sub'%}");
+    if (endId !== "") {
+      $.ajax({
+        url: url2,
+        data: {
+          'end': endId
+        },
+        success: function (data) {
+          $("#id_last").html(data);
+        }
+      });
+    }
+    else {
+      $("#id_last").html(Choose2);
+    }
+  });
+</script>
+
+{% endblock main_search %}

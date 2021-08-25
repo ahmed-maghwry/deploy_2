@@ -1,0 +1,278 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- <title>Page title</title> -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="stylesheet" href="{% static '../static/css/bootstrap/bootstrap.min.css' %}">
+  <link rel="icon" href="{% static '../static/icon/favicon.ico' %}">
+  <link rel="stylesheet" href="{% static '../static/css/font-as.css' %}" class="stylsheet">
+  <link rel="stylesheet" href="{% static '../static/css/me.css' %}" class="stylsheet">
+       {% block css %}
+
+    {% endblock css %}
+
+    <title>{% block head_title %}{% endblock %}</title>
+    {% block extra_head %}
+    {% endblock %}
+
+</head>
+
+<body>
+
+
+  <div class="container-fluid">
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! my nav  start !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <section>
+      <nav class="navbar navbar-expand-lg navbar-light mynav"><a class="navbar-brand col-4 pl-0 mr-0" href="#"><img
+            class="my-nav-icon" src="{% static '../../static/icon/arrows (2).svg'%}" alt=""><span class="myex-all">
+            <span class="myex">Ex</span>change All</span></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigations-09"><span
+            class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse justify-content-md-center col-8 px-0" id="navigations-09">
+          <ul class="navbar-nav col-6 justify-content-center">
+            <li class="nav-item"><a class="nav-link active" href="/">Home<span class="sr-only">(current)</span></a></li>
+            <li class="nav-item"><a class="nav-link" href="/admin">Admin</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'ads:creat_ads'%}">create</a></li>
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">My
+                Account</a>
+                
+                {% if user.is_authenticated %}
+
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'account_logout' %}">Sign Out</a>
+                  <a class="dropdown-item" href="{% url 'account_email' %}">Change E-mail </a>
+                  <a class="dropdown-item" href="{% url 'user_profile:user_profile_sittings' %}">my Profile sittings </a>
+                </div>
+                
+                {% else %}
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'account_login' %}">Login</a>
+                  <a class="dropdown-item" href="{% url 'account_signup' %}">New Account </a>
+                </div>
+                {% endif %}
+                  
+              
+
+            </li>
+          </ul>
+          <div class="col-6 text-lg-right px-0"><a class="btn btn-outline-primary mt-2 mt-lg-0 mr-0" href="#">Sign
+              up</a>
+          </div>
+        </div>
+      </nav>
+    </section>
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! my nav  end !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+    {% if messages %}
+    <div>
+      <strong>Messages:</strong>
+      <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! my nav cat start !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+    <section class="py-5 mynavcat ">
+      <div class="container">
+        <div class="row mt-5 mycatlink">
+          <div class="col-md-6 col-lg-3 d-flex align-items-start my-icon-div col-sm-6"><img id="aa"
+              class="mr-2 mt-2 my-icon" src="{% static '../static/icon/house.svg'%}" alt="">
+
+            <a href="{% url 'search:by_main_all' 111 %}">
+              <div>
+                <h5 class="mb-1">Properties</h5>
+              </div>
+            </a>
+
+
+
+          </div>
+          <div class="col-md-6 col-lg-3 d-flex align-items-start my-icon-div col-sm-6"><img class="mr-2 mt-2 my-icon"
+              src="{% static '../static/icon/clothes.svg'%}" alt="">
+            <a href="{% url 'search:by_main_all' 112 %}">
+            <div>
+              <h5 class="mb-1">clothes</h5>
+            </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-3 d-flex align-items-start my-icon-div col-sm-6"><img class="mr-2 mt-2 my-icon"
+              src="{% static '../static/icon/home app.svg'%}" alt="">
+            <a href="{% url 'search:by_main_all' 113 %}">
+            <div>
+              <h5 class="mb-1">Appliances</h5>
+            </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-3 d-flex align-items-start my-icon-div col-sm-6"><img class="mr-2 mt-2 my-icon"
+              src="{% static '../static/icon/service.svg'%}" alt="">
+            <a href="{% url 'search:by_main_all' 114 %}">
+            <div>
+              <h5 class="mb-1"> Services</h5>
+            </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-3 d-flex align-items-start my-icon-div col-sm-6"><img class="mr-2 mt-2 my-icon"
+              src="{% static '../static/icon/fishing-rod.svg'%}" alt="">
+            <a href="{% url 'search:by_main_all' 115 %}">
+            <div>
+              <h5 class="mb-1">Sports & Hobbies</h5>
+            </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-3 d-flex align-items-start my-icon-div col-sm-6"><img class="mr-2 mt-2 my-icon"
+              src="{% static '../static/icon/car (1).svg'%}" alt="">
+            <a href="{% url 'search:by_main_all' 43 %}">
+            <div>
+              <h5 class="mb-1">Vehicles</h5>
+            </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-3 d-flex align-items-start my-icon-div col-sm-6"><img class="mr-2 mt-2 my-icon"
+              src="{% static '../static/icon/hamster.svg'%}" alt="">
+            <a href="{% url 'search:by_main_all' 116 %}">
+            <div>
+              <h5 class="mb-1">Pets - Accessories</h5>
+            </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-3 d-flex align-items-start my-icon-div col-sm-6"><img class="mr-2 mt-2 my-icon"
+              src="{% static '../static/icon/livingroom.svg'%}" alt="">
+            <a href="{% url 'search:by_main_all' 117 %}">
+            <div>
+              <h5 class="mb-1">Home Furniture</h5>
+            </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-3 d-flex align-items-start my-icon-div col-sm-6"><img class="mr-2 mt-2 my-icon"
+              src="{% static '../static/icon/baby.svg'%}" alt="">
+            <a href="{% url 'search:by_main_all' 118 %}">
+            <div>
+              <h5 class="mb-1">Babies & Kids</h5>
+            </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-3 d-flex align-items-start my-icon-div col-sm-6"><img class="mr-2 mt-2 my-icon"
+              src="{% static '../static/icon/mopile.svg'%}" alt="">
+            <a href="{% url 'search:by_main_all' 50 %}">
+            <div>
+              <h5 class="mb-1">Mobile Phones & Accessories</h5>
+            </div>
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-3 d-flex align-items-start my-icon-div col-sm-6"><img class="mr-2 mt-2 my-icon"
+              src="{% static '../static/icon/computer.svg'%}" alt="">
+            <a href="{% url 'search:by_main_all' 53 %}">
+            <div>
+              <h5 class="mb-1">Electronic Devices</h5>
+            </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ######################################## my nav cat end ################################# -->
+
+
+
+
+
+
+
+
+
+
+    {% block body %}
+
+    {% block content %}
+    {% endblock %}
+    {% endblock %}
+    {% block extra_body %}
+    {% endblock %}
+
+    
+    {% block card %}
+
+    {% endblock card %}
+    {% block detail %}
+
+    {% endblock detail %}
+
+    {% block main_search %}
+
+    {% endblock main_search %}
+
+    <!-- #################################    start footer ################################# -->
+
+
+    <footer class="py-4 my-footer">
+      <div class="container text-center text-lg-left">
+        <div class="row d-flex justify-content-between flex-column flex-lg-row align-items-center align-items-lg-start">
+          <div class="d-flex flex-column col-10 col-lg-5 pl-0">
+            <h5><a href="#">Pied Piper</a></h5>
+            <p>Let's get you connected! We've designed a simple, efficient process for companies migrating to PiperNet.
+              Here's how it works.</p>
+            <!-- <ul class="list-inline d-flex mb-3 justify-content-center justify-content-lg-start">
+              <li class="px-2"><a href="#"><img src="placeholder/icons/twitter.svg" alt=""></a></li>
+              <li class="px-2"><a href="#"><img src="placeholder/icons/facebook-official.svg" alt=""></a></li>
+              <li class="px-2"><a href="#"><img src="placeholder/icons/instagram.svg" alt=""></a></li>
+            </ul> -->
+          </div>
+          <div>
+            <h6>Products</h6>
+            <ul class="list-inline ml-0">
+              <li class="py-1"><a href="#">Features</a></li>
+              <li class="py-1"><a href="#">Enterprise</a></li>
+              <li class="py-1"><a href="#">Support</a></li>
+              <li class="py-1"><a href="#">ICO</a></li>
+            </ul>
+          </div>
+          <div>
+            <h6>About Pied Piper</h6>
+            <ul class="list-inline ml-">
+              <li class="py-1"><a href="#">Our team</a></li>
+              <li class="py-1"><a href="#">Careers</a></li>
+              <li class="py-1"><a href="#">Press</a></li>
+              <li class="py-1"><a href="#">Stores</a></li>
+            </ul>
+          </div>
+          <div>
+            <h6>Contact</h6>
+            <ul class="list-inline ml-0">
+              <li class="py-1"><a href="#">pay-the-piper@piedpiper.com</a></li>
+              <li class="py-1"><a href="#">555-05-555</a></li>
+              <li class="py-1"><a href="#">Pied Piper HQ - 59 Silicon Av.</a></li>
+            </ul>
+          </div>
+          <div class="w-100 border-top my-3"></div>
+        </div>
+        <div class="flex-column flex-sm-row align-items-center justify-content-sm-between"><a href="#">Terms and
+            conditions</a>
+          <p class="mb-0 small text-muted">&copy; 2019 Pied Piper. All right reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <!-- #################################    end footer ################################# -->
+
+  </div>
+
+  <script src="{% static '../static/js/all-as.js' %}"></script>
+  <script src="{% static '../static/js/jquery/jquery.min.js' %}"></script>
+  <script src="{% static '../static/js/popper/popper.min.js' %}"></script>
+  <script src="{% static '../static/js/bootstrap/bootstrap.min.js' %}"></script>
+     {% block javascr %}
+
+    {% endblock javascr %}
+
+</body>
+
+</html>

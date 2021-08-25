@@ -1,0 +1,135 @@
+
+{% load static %}
+
+
+<div><li><label for="id_order_by_d">Order by options:</label>
+  <select name="order_by_options" id="id_order_by_d">
+ <option value="create_date">date_up</option>
+
+ <option value="{% if query %}{{query}}page=1&order_by_options_data={% endif %}-create_date" {% if order_by_data == '-create_date' %}selected{% endif %}>date_down</option>
+
+ <option value="{% if query %}{{query}}page=1&order_by_options_data={% endif %}price"{% if order_by_data == 'price' %}selected{% endif %}>price_up</option>
+page=1&
+ <option value="{% if query %}{{query}}page=1&order_by_options_data={% endif %}-price"{% if order_by_data == '-price' %}selected{% endif %}>price_down</option>
+page=1&
+ <option value="{% if query %}{{query}}page=1&order_by_options_data={% endif %}title"{% if order_by_data == 'title' %}selected{% endif %}>title_up</option>
+page=1&
+ <option value="{% if query %}{{query}}page=1&order_by_options_data={% endif %}-title"{% if order_by_data == '-title' %}selected{% endif %}>title_down</option>
+
+</select></li></div>
+
+<div class="tab-content my-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      
+        
+      
+      <div class="row">
+
+        {% for ad in by_catugry_2 %}
+        
+
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 my-card-respon ">
+                <div class="card my-card">
+                    <img src="{{ad.img.url}}" class="card-img-top my-card-img" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ad.title}}</h5>
+                        <p class="card-text">{{ad.description}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">it is for || {{ ad.ad_option }}</li>
+                        <li class="list-group-item">cat || {{ ad.main }}</li>
+                    </ul>
+                    <div class="card-body">
+                        <a class="btn btn-primary" href=" {{ ad.id }}#con " role="button">know More</a>
+                        <a class="btn btn-success" href="{% url 'ads:edit_ads' ad.id %}" role="button">Edit !</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+      </div>
+    </div>
+    
+    <!-- ###################################################   start Pagination     ######################             -->
+    
+    
+    <div class="paginator">
+      {% if by_catugry_2.has_other_pages %}
+      <nav class="p-2 my-Pagination" aria-label="Pagination">
+        <ul class="pagination justify-content-center mb-0 flex-wrap"> 
+          {% if by_catugry_2.has_previous  %}
+            <li class="page-item "><a class="page-link paginator_click" style="cursor: pointer;" id="first" href_test="{% if query %}{{query}}{% endif %}page=1">First</a></li>
+            <li class="page-item "><a class="page-link paginator_click" style="cursor: pointer;" id="previous" href_test="{% if query %}{{query}}{% endif %}page={{ by_catugry_2.previous_page_number }}">Previous</a></li>
+          {% else %}
+            <li class="page-item disabled" style="cursor: not-allowed;" ><a class="page-link" href="#">First</a></li>
+            <li class="page-item disabled" style="cursor: not-allowed;" ><a class="page-link" href="#">Previous</a></li>
+          {% endif %}
+          {% for ads_page in by_catugry_2.paginator.page_range %}
+          {% if by_catugry_2.number == ads_page %}
+          <li class="page-item active "><a class="page-link"  id="pages_actual" >{{ads_page}}</a></li>
+          {% elif ads_page > by_catugry_2.number|add:'-4' and ads_page < by_catugry_2.number|add:'4' %}
+          <li class="page-item  "><a class="page-link " style="cursor: pointer;" id="pages_want_{{ads_page}}" href_test="{% if query %}{{query}}{% endif %}page={{ads_page }}">{{ads_page}}</a></li>
+          {% endif %}
+          {% endfor %}
+          {% if by_catugry_2.has_next %}
+            <li class="page-item"><a class="page-link paginator_click" style="cursor: pointer;" id="next" href_test="{% if query %}{{query}}{% endif %}page={{ by_catugry_2.next_page_number }}">Next</a></li>
+            <li class="page-item"><a class="page-link paginator_click" style="cursor: pointer;" id="last" href_test="{% if query %}{{query}}{% endif %}page={{ by_catugry_2.paginator.num_pages }}">Last </a></li>
+            {% else %}
+            <li class="page-item disabled" style="cursor: not-allowed;" ><a class="page-link"  href="#">Next</a></li>
+            <li class="page-item disabled" style="cursor: not-allowed;" ><a class="page-link"  href="#">Last</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+ 
+      <!--  ###################################################   end Pagination     ######################             -->
+
+
+<script src="{% static '../../static/js/jquery/jquery.min.js' %}"></script>
+<script>
+  
+  $("#id_order_by_d").change(function () {
+    var order_by_options_data = $("#id_order_by_d").val();
+      $.ajax({      
+        method: 'GET',                
+        url: "{% url 'search:by_catugry' %}", 
+        data: order_by_options_data ,
+        success: function (data) {  
+          $("#cat_show").html(data);
+        }
+      });
+    });
+
+  $(".paginator_click").click(function () {
+    var data_send = $(this).attr("href_test")
+    var thisURL = ("{% url 'search:by_catugry'%}")
+    var target_nav = $("[cat_id|='{{ catugry_1 }}']").attr("href") 
+    console.log(target_nav); 
+    $.ajax({
+      method: 'GET',
+      url: thisURL ,
+      data: data_send ,
+      success: function (data) {
+        $("#cat_show").html(data);
+      }
+    });
+  });
+
+  {% for ads_page in by_catugry_2.paginator.page_range %}
+  $("#pages_want_{{ads_page}}").click(function () {
+    var data_send = $(this).attr("href_test")
+    var thisURL = ("{% url 'search:by_catugry' %}")
+    var target_nav = $("[cat_id|='{{ catugry_1 }}']").attr("href") 
+    console.log(data_send); 
+    $.ajax({
+      method: 'GET',
+      url: "{% url 'search:by_catugry' %}",
+      data: data_send ,
+      success: function (data) {
+        $("#cat_show").html(data);
+      }
+    });
+  });
+  {% endfor %}
+
+
+</script>

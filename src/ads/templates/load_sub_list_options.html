@@ -1,0 +1,15 @@
+
+
+<option value="">Choose</option>
+{% for cat in sub %}
+<option value="{{ cat.pk }}">{{ cat.name }}</option>
+{% endfor %}
+
+{% for cate in end %}
+<option value="{{ cate.pk }}">{{ cate.name }}</option>
+{% endfor %}
+
+{% for catelast in last %}
+<option value="{{ catelast.pk }}">{{ catelast.name }}</option>
+{% endfor %}
+

@@ -1,0 +1,241 @@
+{% extends 'base_ads.html' %}
+
+{% block main_search %}
+{% load static %}
+{% load bootstrap4 %}
+<section id="con" class="py-3 my-product-detils">
+
+  <form method="GET" id="searchform" enctype="multipart/form-data" novalidate>
+    <select class="d-none" name="main" id="id_main">
+      <option value="{{ main_id_ }}">{{ main_id_ }}</option>
+    </select>
+      <div class="row">
+        <div class="col-md-4">
+          {% bootstrap_form order_by_form %}
+
+          {% bootstrap_form general_search_form %}</div>
+        <div class="col-md-4" id="main_form_search"></div>
+      </div>
+      
+    <button id="serch" type="button">Search</button>
+    
+    
+    
+  </form>
+  <div class="search" id="search_result">
+    <div class="container">
+      <div class="row">
+        {% for ad in main_catugry_q %}
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 my-card-respon ">
+          <div class="card my-card">
+            <img src="{{ad.img.url}}" class="card-img-top my-card-img" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{ ad.title }}</h5>
+              <p class="card-text">{{ ad.description }}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">it is for || {{ ad.ad_option }}</li>
+              <li class="list-group-item">cat || {{ ad.main }}</li>
+            </ul>
+            <div class="card-body">
+              <a class="btn btn-primary" target="_blank" href="{% url 'ads:ads_detail' ad.id  %}#con" role="button">know
+                More</a>
+            {% if user.is_authenticated %}
+            
+            {% if ad not in user_favoret or not user_favoret %}
+            
+            <a class="btn btn-primary add_favoret " style="width: 27%; color: white;" ad_id2="{{ ad.id }}" ajax_href="{% url 'user_profile:favoret'%}"  role="button">Favorite</a>
+            {% else %}
+            <a class="btn btn-danger add_favoret" style="width: 35%; color: white;" ad_id2="{{ ad.id }}" ajax_href="{% url 'user_profile:favoret'%}"  role="button">Favorite</a>
+            {% endif %}
+            {% endif %}
+              <a class="btn btn-success" target="_blank" href="{% url 'ads:edit_ads' ad.id %}" role="button">Edit !</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+       
+
+      </div>
+    </div>
+     <!-- ###################################################   start Pagination     ######################             -->
+     <div class="paginator">
+      {% if main_catugry_q.has_other_pages %}
+      <nav class="p-2 my-Pagination" aria-label="Pagination">
+        <ul class="pagination justify-content-center mb-0 flex-wrap"> 
+          {% if main_catugry_q.has_previous  %}
+            <li class="page-item "><a class="page-link" href="?page=1#con">First</a></li>
+            <li class="page-item "><a class="page-link" href="?page={{ main_catugry_q.previous_page_number }}#con">Previous</a></li>
+          {% else %}
+            <li class="page-item disabled" style="cursor: not-allowed;" ><a class="page-link" href="#">First</a></li>
+            <li class="page-item disabled" style="cursor: not-allowed;" ><a class="page-link" href="#">Previous</a></li>
+          {% endif %}
+          {% for ads_page in main_catugry_q.paginator.page_range %}
+          {% if main_catugry_q.number == ads_page %}
+          <li class="page-item active "><a class="page-link" >{{ads_page}}</a></li>
+          {% elif ads_page > main_catugry_q.number|add:'-4' and ads_page < main_catugry_q.number|add:'4' %}
+          <li class="page-item  "><a class="page-link" href="?page={{ads_page }}#con">{{ads_page}}</a></li>
+          {% endif %}
+          {% endfor %}
+          {% if main_catugry_q.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ main_catugry_q.next_page_number }}#con">Next</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{ main_catugry_q.paginator.num_pages }}#con">Last </a></li>
+            {% else %}
+            <li class="page-item disabled" style="cursor: not-allowed;" ><a class="page-link" href="#">Next</a></li>
+            <li class="page-item disabled" style="cursor: not-allowed;" ><a class="page-link" href="#">Last</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+ 
+      <!--  ###################################################   end Pagination     ######################             -->
+    </div>
+    </div>
+</section>
+
+<!-- <script src="{% static '../static/js/jquery/jquery.min.js' %}"></script> -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+  
+  var Choose2 = '<option value="">Choose</option>'
+
+  
+$(".add_favoret").click(function () {
+    var url = $(this).attr("ajax_href");
+    var ad_id = $(this).attr("ad_id2");
+    var sel="[ad_id2='"+ad_id+"']"
+    $.ajax({
+      url: url ,
+      data: { 'ad_id': ad_id },
+      success: function (data) {
+        // var color_act=$(sel).css('background-color');
+        // console.log(color_act)
+        if ($(sel).hasClass('btn-primary')) {
+          $(sel).removeClass('btn-primary');
+          $(sel).addClass('btn-danger');
+          $(sel).animate({width: "35%",}, {duration: 100,});
+        }
+        else {
+          $(sel).removeClass('btn-danger');
+          $(sel).addClass('btn-primary');
+          $(sel).animate({width: "27%",}, {duration: 100,});
+        }
+      }
+    });
+  });
+
+  
+  $("#id_order_by_options").change (function () {
+    var myForm = $('#searchform');
+    var formData = myForm.serialize();
+      var thisURL = (" {% url 'search:by_main_result' %} ")
+    $.ajax({
+      method: 'GET',
+      url: thisURL,
+      data: formData ,
+      success: function (data) {
+        $("#search_result").html(data);
+      }
+    });
+  });
+
+  $("#serch").click (function () {
+    var myForm = $('#searchform');
+    var formData = myForm.serialize();
+      var thisURL = (" {% url 'search:by_main_result' %} ")
+    $.ajax({
+      method: 'GET',
+      url: thisURL,
+      data: formData ,
+      success: function (data) {
+        // $("#search_result").fadeOut;
+        $("#search_result").html(data);
+      }
+    });
+  });
+  $("#id_sub").change(function () {
+    var subId = $(this).val();
+    var url2 = ("{% url 'ads:load_sub'%}")
+    var url4 = ("{% url 'search:change_form_search'%}")
+    var url5 = ("{% url 'search:by_main_result'%}")
+    var mainId = {{main_id_}};
+    console.log(mainId); 
+
+    $("#id_last").html(Choose2);
+    if (subId !== "") {
+      $.ajax({
+        url: url2,
+        data: {
+          'main': mainId,
+          'sub': subId,
+        },
+        success: function (data) {
+          $("#id_end").html(data);
+        }
+      });
+      $.ajax({
+      method: 'GET',
+      url: url4,
+      data: {
+        'main': mainId,
+         'subId': subId ,
+      } ,
+      success: function (data) {
+        $("#main_form_search").html(data);
+        $("#search_result").html('');
+        console.log("if");
+        
+      }
+    });
+
+    }
+    else {
+      $("#id_last").html(Choose2);
+      $("#id_end").html(Choose2);
+      $("#main_form_search").html('');
+      $("#search_result").html('');
+
+      $.ajax({
+      method: 'GET',
+      url: url5,
+      data: {
+        'main': mainId,
+      } ,
+      success: function (data) {
+        $("#search_result").html(data);
+        console.log("if");
+      }
+    });
+
+    }
+  });
+
+  $("#id_end").change(function () {
+    var url = $("#adsform").attr("data-url");
+    var endId = $(this).val();
+    var subId = $("#id_sub").val();
+    var url2 = ("{% url 'ads:load_sub'%}");
+    var mainId = {{main_id_}};
+    if (endId !== "") {
+      $.ajax({
+        url: url2,
+        data: {
+          'main': mainId,
+          'sub': subId,
+          'end': endId
+        },
+        success: function (data) {
+          $("#id_last").html(data);
+          console.log("dsds")
+        }
+      });
+    }
+    else {
+      $("#id_last").html(Choose2);
+    }
+  });
+</script>
+
+{% endblock main_search %}
