@@ -1,6 +1,6 @@
 from django.shortcuts import render , HttpResponse
 from django.shortcuts import get_object_or_404 , redirect
-from . models import * 
+from . models import *
 from user_profile.models import user_details
 from . forms import *
 from django.contrib.auth.decorators import login_required
@@ -13,17 +13,19 @@ from django.urls import reverse_lazy
 # Create your views here.
 def all_ads(request):
     try:
-        user=request.user
-        user_favoret=get_object_or_404(user_details , user=user).favoret_ads.id()
+        if request.user.id != None :
+            user=request.user.id
+            user_favoret=get_object_or_404(user_details , user=user).favoret_ads.id()
+        else:pass
     except:pass
 
     order_by_no_ajax_get = order_by_no_ajax ()
     order_by_data = request.GET.get('order_by_options', '-create_date' )
     order_by_no_ajax_get.fields["order_by_options"].choices
-    
 
 
-    ads_all_complet=ads.objects.all().order_by(order_by_data)
+
+    ads_all_complet=ads.objects.only('title','description','ad_option','img').order_by(order_by_data)
     paginator = Paginator(ads_all_complet ,5 ) # Show 25 contacts per page.
     page_number = request.GET.get('page')
     ads_all = paginator.get_page(page_number)
@@ -33,9 +35,9 @@ def all_ads(request):
         context = {'ads_all' : ads_all , 'order_by_no_ajax_get':order_by_no_ajax_get,'order_by_data':order_by_data,}
     return render(request , 'all.html' , context)
     #########################################f################################
-def ads_detail(request , id):   
+def ads_detail(request , id):
     detail=get_object_or_404(ads , id=id)
-    sub_form_id = str(detail.sub.id)  
+    sub_form_id = str(detail.sub.id)
     try:
         user=request.user
         user_favoret=get_object_or_404(user_details , user=user).favoret_ads.all()
@@ -54,21 +56,21 @@ def ads_detail(request , id):
         "287" : db_general,"288" : db_general,"289" : db_general,"290" : db_general,"291" : db_general,"292" : db_general,"293" : db_general,"294" : db_general,"295" : db_general,"296" : db_general,"297" : db_general,"251" : db_general,"252" : db_general,"253" : db_general,"254" : db_general,"255" : db_general,"256" : db_general,
     }
     if sub_form_id in forms_ and check_is_number(sub_form_id) == True :
-        details_form=forms_[sub_form_id]  
+        details_form=forms_[sub_form_id]
         detail_exet=get_object_or_404(details_form , ad_id=id)
         all_field={}
-        for field in details_form._meta.fields :           
+        for field in details_form._meta.fields :
             if field.name != 'id' and field.name != 'ad_id' :
                 field_val=getattr(detail_exet , field.name )
                 if field_val != None and field_val != "" and field_val != False :
                     all_field[field.name] = field_val
-    
+
     else:details_form=''
     try:
-        
-        try: 
+
+        try:
             context={'detail':detail , 'all_field':all_field,'user_favoret':user_favoret}
-        except:context={'detail':detail , 'all_field':all_field,}     
+        except:context={'detail':detail , 'all_field':all_field,}
     except:
         try: context={'detail':detail ,'user_favoret':user_favoret}
         except:context={'detail':detail }
@@ -76,18 +78,18 @@ def ads_detail(request , id):
 
     return render(request,'detail.html', context)
     #########################################################################
-    # THIS Function USE TO CHANGE THE EXTENSION FORMS FOR VARIABLE OPTIONS 
+    # THIS Function USE TO CHANGE THE EXTENSION FORMS FOR VARIABLE OPTIONS
     # LIKE SOME FIELDS FOR CARS ADS AND ANTHER FOR MOBILE ADS AND FOR JOB ADS
-        # FOR MORE DETAILS {CARS FIELDS :Model , Model Year ,Kilometers  , 
+        # FOR MORE DETAILS {CARS FIELDS :Model , Model Year ,Kilometers  ,
         # Transmission Type ,Body Type ,Engine Capacity (CC)}
     # FOR MORE DETAILS {MOPILE FIELDS :Brand , RAM , processor Model }
     ###############
     # HOW IT WORK #
     ###############
     # 1- make ajax Function to return the id of chosen category if we have it
-    #    and that to selected The right fields for the chosen category 
-    #    If the identifier is 8, then this means that the user chooses cars ads  
-    #    and so on for each category number 
+    #    and that to selected The right fields for the chosen category
+    #    If the identifier is 8, then this means that the user chooses cars ads
+    #    and so on for each category number
     # 2-and if the category doesn't have special fields then return signalf context as zero
     # finally  if signalf context == zero there are no special fields for this ad
 def check_is_number(number):
@@ -114,7 +116,7 @@ def change_form (request):
         "287" : general (),"288" : general (),"289" : general (),"290" : general (),"291" : general (),"292" : general (),"293" : general (),"294" : general (),"295" : general (),"296" : general (),"297" : general (),"251" : general (),"252" : general (),"253" : general (),"254" : general (),"255" : general (),"256" : general (),
     }
     if sub_form_id in forms_ and check_is_number(sub_form_id) == True :
-        details_form=forms_[sub_form_id]  
+        details_form=forms_[sub_form_id]
     else:details_form=''
     context2 ={
         'details_form':details_form,
@@ -144,10 +146,10 @@ def creat_ads(request):
         "203" : furnisher  ,"194" : furnisher  ,"199" : furnisher  ,"200" : furnisher  ,"201" : furnisher  ,"198" : furnisher  ,"197" : furnisher  ,"202" : furnisher  ,"196" : furnisher  ,"195" : furnisher  ,
         "246" : pets  ,"247" : pets  ,"248" : pets  ,"249" : pets  ,"250" : pets  ,
         "54" : general ,"55" : general ,"56" : general ,"57" : general ,"223" : general ,"224" : general ,"225" : general ,"226" : general ,"227" : general ,"228" : general ,"229" : general ,"230" : general ,"231" : general ,"232" : general ,"233" : general ,"234" : general ,"235" : general ,"236" : general ,"237" : general ,"238" : general ,"239" : general ,"240" : general ,"241" : general ,"242" : general ,"243" : general ,"244" : general ,"245" : general ,
-        "287" : general ,"288" : general ,"289" : general ,"290" : general ,"291" : general ,"292" : general ,"293" : general ,"294" : general ,"295" : general ,"296" : general ,"297" : general ,"251" : general ,"252" : general ,"253" : general ,"254" : general  ,"255" : general ,"256" : general 
+        "287" : general ,"288" : general ,"289" : general ,"290" : general ,"291" : general ,"292" : general ,"293" : general ,"294" : general ,"295" : general ,"296" : general ,"297" : general ,"251" : general ,"252" : general ,"253" : general ,"254" : general  ,"255" : general ,"256" : general
     }
         if sub_form_id in forms_ and check_is_number(sub_form_id) == True:
-            details_form=forms_[sub_form_id] (request.POST) 
+            details_form=forms_[sub_form_id] (request.POST)
             signalf=1
         else: signalf=0
         if signalf == 1 :
@@ -165,11 +167,11 @@ def creat_ads(request):
                 #######################333
 ############################
 ############################33
-  
+
 
                 new_details_form.ad_id=form.save()
                 form.save()
-                details_form.save()   
+                details_form.save()
                 return redirect('/')
                 form.data
             else:
@@ -215,7 +217,7 @@ def creat_ads(request):
                 form.fields['last'].queryset = catugry.objects.filter(main_id=main_id_creat ,sub_id=sub_id_creat ,end_id=end_id_creat
                 ).order_by('name')
     else:
-        form= adsform() 
+        form= adsform()
         form.fields['sub'].queryset = catugry.objects.none()
         form.fields['end'].queryset = catugry.objects.none()
         form.fields['last'].queryset = catugry.objects.none()
@@ -249,8 +251,8 @@ def load_sub(request):
 
     if sub_idt :
         end = catugry.objects.filter( main_id=main_idt ,sub_id=sub_idt ,end_id=None).order_by('id')
-        sub=[] 
-        last=[] 
+        sub=[]
+        last=[]
     else:
         end=[]
         last=[]
@@ -258,7 +260,7 @@ def load_sub(request):
         last = catugry.objects.filter( main_id=main_idt ,sub_id=sub_idt ,end_id=end_idt).order_by('id')
         sub=[]
         end=[]
-    else: 
+    else:
         last=[]
     context={
         'sub': sub ,

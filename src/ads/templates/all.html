@@ -56,25 +56,25 @@
     <div class="tab-content my-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
         <table>
-            <form action=" {% url 'ads:all_ads' %}#all"> 
+            <form action=" {% url 'ads:all_ads' %}#all">
               <li><label for="id_order_by_options">Order by options:</label> <select name="order_by_options" onchange="this.form.submit();" id="id_order_by_options">
                 <option value="create_date" {% if order_by_data == 'create_date' %}selected{% endif %}>date_up</option>
-              
+
                 <option value="-create_date"{% if order_by_data == '-create_date' %}selected{% endif %}>date_down</option>
-              
+
                 <option value="price" {% if order_by_data == 'price' %}selected{% endif %}>price_up</option>
-              
+
                 <option value="-price"{% if order_by_data == '-price' %}selected{% endif %}>price_down</option>
-              
+
                 <option value="title" {% if order_by_data == 'title' %}selected{% endif %}>title_up</option>
-              
+
                 <option value="-title"{% if order_by_data == '-title' %}selected{% endif %}>title_down</option>
-              
+
               </select></li> </form>
-          
+
         </table>
         <br>
-        <div class="row">         
+        <div class="row">
           {% for ad in ads_all %}
 
           <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 my-card-respon ">
@@ -86,7 +86,6 @@
               </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">it is for || {{ ad.ad_option }}</li>
-                <!-- <li class="list-group-item">cat || {{ ad.main }}</li> -->
               </ul>
               <div class="card-body">
                 <a class="btn btn-primary" href="{% url 'ads:ads_detail' ad.id  %}#con"  role="button">know More</a>
@@ -106,7 +105,7 @@
         <!-- ###################################################   start Pagination     ######################             -->
         {% if ads_all.has_other_pages %}
         <nav class="p-2 my-Pagination" aria-label="Pagination">
-          <ul class="pagination justify-content-center mb-0 flex-wrap"> 
+          <ul class="pagination justify-content-center mb-0 flex-wrap">
             {% if ads_all.has_previous  %}
               <li class="page-item "><a class="page-link" href="?{% if order_by_data %}order_by_options={{order_by_data}}{% endif %}&page=1#target_page">First</a></li>
               <li class="page-item "><a class="page-link" href="?{% if order_by_data %}order_by_options={{order_by_data}}{% endif %}&page={{ ads_all.previous_page_number }}#target_page">Previous</a></li>
@@ -140,14 +139,14 @@
 
       <!-- new tab -->
 
-      
+
     <div class="tab-pane fade" id="all-cat" role="tabpanel" aria-labelledby="nav-All-tab">
-         
-        
+
+
 
        <div id="cat_show"></div>
        </div>
-      
+
 
 
     </div>
@@ -192,7 +191,7 @@ $(".cat_nav").click(function () {
       data: { 'cat': cat },
       success: function (data) {
         $("#cat_show").html(data);
-        
+
       }
     });
   });

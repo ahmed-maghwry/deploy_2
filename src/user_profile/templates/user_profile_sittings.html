@@ -31,22 +31,22 @@
             <!-- new tab -->
         <div class="tab-pane fade show active" id="nav-my_ads" role="tabpanel" aria-labelledby="nav-my_ads-tab">
             <!-- <table>
-                <form action=" {% url 'ads:all_ads' %}#all"> 
+                <form action=" {% url 'ads:all_ads' %}#all">
                     <li><label for="id_order_by_options">Order by options:</label> <select name="order_by_options" onchange="this.form.submit();" id="id_order_by_options">
                     <option value="create_date" {% if order_by_data == 'create_date' %}selected{% endif %}>date_up</option>
-                    
+
                     <option value="-create_date"{% if order_by_data == '-create_date' %}selected{% endif %}>date_down</option>
-                    
+
                     <option value="price" {% if order_by_data == 'price' %}selected{% endif %}>price_up</option>
-                    
+
                     <option value="-price"{% if order_by_data == '-price' %}selected{% endif %}>price_down</option>
-                    
+
                     <option value="title" {% if order_by_data == 'title' %}selected{% endif %}>title_up</option>
-                    
+
                     <option value="-title"{% if order_by_data == '-title' %}selected{% endif %}>title_down</option>
-                    
+
                     </select></li> </form>
-                
+
             </table> -->
 
             <form method="POST" action="{% url 'account_change_password' %}" class="password_change">
@@ -69,7 +69,6 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">it is for || {{ ad.ad_option }}</li>
-                            <li class="list-group-item">cat || {{ ad.main }}</li>
                         </ul>
                         <div class="card-body">
                             <a class="btn btn-primary" href="{% url 'ads:ads_detail' ad.id  %}#con"
@@ -133,27 +132,27 @@
             {% endif %}
 
             <!--  ###################################################   end Pagination     ######################             -->
-        
+
         </div>
         <!-- new tab -->
         <div class="tab-pane fade " id="nav-my_favoret" role="tabpanel" aria-labelledby="nav-my_favoret-tab">
             <!-- <table>
-                    <form action=" {% url 'ads:all_ads' %}#all"> 
+                    <form action=" {% url 'ads:all_ads' %}#all">
                         <li><label for="id_order_by_options">Order by options:</label> <select name="order_by_options" onchange="this.form.submit();" id="id_order_by_options">
                         <option value="create_date" {% if order_by_data == 'create_date' %}selected{% endif %}>date_up</option>
-                        
+
                         <option value="-create_date"{% if order_by_data == '-create_date' %}selected{% endif %}>date_down</option>
-                        
+
                         <option value="price" {% if order_by_data == 'price' %}selected{% endif %}>price_up</option>
-                        
+
                         <option value="-price"{% if order_by_data == '-price' %}selected{% endif %}>price_down</option>
-                        
+
                         <option value="title" {% if order_by_data == 'title' %}selected{% endif %}>title_up</option>
-                        
+
                         <option value="-title"{% if order_by_data == '-title' %}selected{% endif %}>title_down</option>
-                        
+
                         </select></li> </form>
-                    
+
                 </table> -->
             <br>
             <div class="row">
@@ -168,7 +167,6 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">it is for || {{ ad.ad_option }}</li>
-                            <li class="list-group-item">cat || {{ ad.main }}</li>
                         </ul>
                         <div class="card-body">
                             <a class="btn btn-primary" href="{% url 'ads:ads_detail' ad.id  %}#con" role="button">know
@@ -231,7 +229,7 @@
             {% endif %}
 
             <!--  ###################################################   end Pagination     ######################             -->
-        
+
         </div>
     <!-- new tab -->
     </div>
@@ -255,14 +253,14 @@ $(".add_favoret").click(function () {
           $(sel).removeClass('btn-primary');
           $(sel).addClass('btn-danger');
           $(sel).animate({width: "35%",}, {duration: 100,});
-          $(ad_card).animate({opacity: "1"} , {duration: 500,});  
+          $(ad_card).animate({opacity: "1"} , {duration: 500,});
         }
         else {
           $(sel).removeClass('btn-danger');
           $(sel).addClass('btn-primary');
           $(sel).animate({width: "27%",}, {duration: 100,});
-          $(ad_card).animate({opacity: "0.3"} , {duration: 500,}); 
-        }   
+          $(ad_card).animate({opacity: "0.3"} , {duration: 500,});
+        }
       }
     });
   });

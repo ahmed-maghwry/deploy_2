@@ -25,7 +25,7 @@ SECRET_KEY = '5vcx5^peselbl)-4-kohom4r*2ns0q4+%p(wec^ih7#*-@326l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ahmedmag.pythonanywhere.com']
 
 
 # Application definition
@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 #     'django.contrib.auth.backends.ModelBackend',
 
 #     'allauth.account.auth_backends.AuthenticationBackend',
-   
+
 # ]
 
 INSTALLED_APPS = [
@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     # 'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.google',
 
     'bootstrap4',
     'ads',
@@ -65,6 +65,7 @@ SITE_ID = 1
 ACCOUNT_LOGOUT_ON_GET =True
 LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ACCOUNT_EMAIL_REQUIRED = (False)
 
 
 MIDDLEWARE = [
@@ -110,15 +111,14 @@ if db==2:
 else :
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql', 
-            'NAME': 'ads',
-            'USER': 'root',
-            'PASSWORD': '123456',
-            'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'ahmedmag$ads',
+            'USER': 'ahmedmag',
+            'PASSWORD': 'Eman_1234',
+            'HOST': 'ahmedmag.mysql.pythonanywhere-services.com',   # Or an IP Address that your DB is hosted on
             'PORT': '3306',
         }
     }
-
 
 
 # Password validation
@@ -168,7 +168,29 @@ MEDIA_ROOT=os.path.join(BASE_DIR , 'media')
 
 
 INTERNAL_IPS = [
-    
-    '127.0.0.1',
-  
+
+    '154.187.150.200',
+
 ]
+
+
+# def custom_show_toolbar(request.META.get('HTTP_X_REAL_IP', None) in INTERNAL_IPS):
+#     return True
+#     if request.is_ajax():
+#         return False
+#     return bool(settings.DEBUG)
+
+# DEBUG_TOOLBAR_CONFIG = {'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,}
+
+
+def show_toolbar(request):                                     # <-- NEW
+    return True                                                # <-- NEW
+
+DEBUG_TOOLBAR_CONFIG = {                                       # <-- NEW
+    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,                    # <-- NEW
+}                                                              # <-- NEW
+
+if DEBUG:                                                      # <-- NEW
+    import mimetypes                                           # <-- NEW
+    mimetypes.add_type("application/javascript", ".js", True)  # <-- NEW
+

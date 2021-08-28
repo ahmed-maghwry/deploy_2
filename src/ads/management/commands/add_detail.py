@@ -84,13 +84,14 @@ data_ba={
     }
 class Command(BaseCommand):
     def handle(self, *args, **kwargs):
-        for p in range (1 , 100000 ) :
+        for p in range (500000 , 1000000) :
 
             main=catugry.objects.get(id=random.choice(main_list))
+
             if main.id==43 :
                 sub=catugry.objects.get(id=random.choice(_43_list))
                 end=catugry.objects.none()
-                if sub.id == 44 : 
+                if sub.id == 44 :
                     end=random.choice(catugry.objects.filter( main_id=main , sub_id=44, end__isnull=True ))
                 else:pass
             elif main.id == 50 :
@@ -119,7 +120,7 @@ class Command(BaseCommand):
                 main=main,
                 sub=sub,
                 end=end,
-                user_id=7,
+                user_id=1,
                 ad_option=random.choice(options),
                 name_of_who=random.choice(names))
             except:
@@ -128,7 +129,7 @@ class Command(BaseCommand):
                 description='test from command'+ str(main) + " // " + str(sub),
                 main=main,
                 sub=sub,
-                user_id=7,
+                user_id=1,
                 ad_option=random.choice(options),
                 name_of_who=random.choice(names))
             saved_ad=cat
@@ -216,8 +217,14 @@ class Command(BaseCommand):
                 ,warranty=random.choice(warranty)
                 ,condition=random.choice(condition)
                 ,color=random.choice(colors))
-            elif saved_ad.sub.id in _53_list :
-                detail_ad=details_data.objects.create(ad_id=saved_ad)
+            elif details_data == db_general :
+                detail_ad=details_data.objects.create(ad_id=saved_ad,
+                payment_option=random.choice(payment_options),
+                price = float(random.randrange(200,10000000)),
+                condition=random.choice(condition),
+                ad_type=random.choice(ad_type)
+                )
+
             elif saved_ad.sub.id in _111_list :
                 detail_ad=details_data.objects.create(ad_id=saved_ad)
             elif saved_ad.sub.id in _113_list :
@@ -235,4 +242,3 @@ class Command(BaseCommand):
             else:detail_ad=details_data.objects.create(ad_id=saved_ad)
             self.stdout.write(self.style.SUCCESS('Data imported successfully'+ str(p)  ))
 
-            

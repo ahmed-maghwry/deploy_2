@@ -23,12 +23,12 @@ def favoret(request) :
 def user_profile_sittings (request  ) :
     change_password=ChangePasswordForm()
     user=request.user
-    user_ads=get_user_ads(user)
-    user_favoret=get_object_or_404(user_details , user=user).favoret_ads.all()
-    context={'user_ads':user_ads , 'user_favoret':user_favoret , 'change_password':change_password  }
+    # user_ads=get_user_ads(user)
+    user_favoret=get_object_or_404(user_details.objects.only('favoret_ads') , user_id=user).favoret_ads.only('title','description','ad_option','img')
+    context={ 'user_favoret':user_favoret , 'change_password':change_password  }
     return render(request , 'user_profile_sittings.html' , context)
 
-    
+
 def get_user_ads (user):
     user_ads_filter=ads.objects.filter(user=user )
     return user_ads_filter
