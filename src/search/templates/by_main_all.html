@@ -16,11 +16,11 @@
           {% bootstrap_form general_search_form %}</div>
         <div class="col-md-4" id="main_form_search"></div>
       </div>
-      
+
     <button id="serch" type="button">Search</button>
-    
-    
-    
+
+
+
   </form>
   <div class="search" id="search_result">
     <div class="container">
@@ -35,15 +35,14 @@
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">it is for || {{ ad.ad_option }}</li>
-              <li class="list-group-item">cat || {{ ad.main }}</li>
             </ul>
             <div class="card-body">
               <a class="btn btn-primary" target="_blank" href="{% url 'ads:ads_detail' ad.id  %}#con" role="button">know
                 More</a>
             {% if user.is_authenticated %}
-            
+
             {% if ad not in user_favoret or not user_favoret %}
-            
+
             <a class="btn btn-primary add_favoret " style="width: 27%; color: white;" ad_id2="{{ ad.id }}" ajax_href="{% url 'user_profile:favoret'%}"  role="button">Favorite</a>
             {% else %}
             <a class="btn btn-danger add_favoret" style="width: 35%; color: white;" ad_id2="{{ ad.id }}" ajax_href="{% url 'user_profile:favoret'%}"  role="button">Favorite</a>
@@ -55,7 +54,7 @@
         </div>
         {% endfor %}
 
-       
+
 
       </div>
     </div>
@@ -63,7 +62,7 @@
      <div class="paginator">
       {% if main_catugry_q.has_other_pages %}
       <nav class="p-2 my-Pagination" aria-label="Pagination">
-        <ul class="pagination justify-content-center mb-0 flex-wrap"> 
+        <ul class="pagination justify-content-center mb-0 flex-wrap">
           {% if main_catugry_q.has_previous  %}
             <li class="page-item "><a class="page-link" href="?page=1#con">First</a></li>
             <li class="page-item "><a class="page-link" href="?page={{ main_catugry_q.previous_page_number }}#con">Previous</a></li>
@@ -88,7 +87,7 @@
         </ul>
       </nav>
       {% endif %}
- 
+
       <!--  ###################################################   end Pagination     ######################             -->
     </div>
     </div>
@@ -98,10 +97,10 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 <script>
-  
+
   var Choose2 = '<option value="">Choose</option>'
 
-  
+
 $(".add_favoret").click(function () {
     var url = $(this).attr("ajax_href");
     var ad_id = $(this).attr("ad_id2");
@@ -126,7 +125,7 @@ $(".add_favoret").click(function () {
     });
   });
 
-  
+
   $("#id_order_by_options").change (function () {
     var myForm = $('#searchform');
     var formData = myForm.serialize();
@@ -161,7 +160,7 @@ $(".add_favoret").click(function () {
     var url4 = ("{% url 'search:change_form_search'%}")
     var url5 = ("{% url 'search:by_main_result'%}")
     var mainId = {{main_id_}};
-    console.log(mainId); 
+    console.log(mainId);
 
     $("#id_last").html(Choose2);
     if (subId !== "") {
@@ -186,7 +185,7 @@ $(".add_favoret").click(function () {
         $("#main_form_search").html(data);
         $("#search_result").html('');
         console.log("if");
-        
+
       }
     });
 

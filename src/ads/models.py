@@ -6,10 +6,10 @@ from django.utils import timezone
 
 # Create your models here.
 class ads(models.Model):
-    options =( 
-    ("ex", "ex"), 
-    ("Sale", "Sale"), 
-    ("free", "free"), 
+    options =(
+    ("ex", "ex"),
+    ("Sale", "Sale"),
+    ("free", "free"),
 )
     user = models.ForeignKey(User, blank=True , null=True, on_delete=models.CASCADE)
     title =models.CharField(max_length=80)
@@ -44,7 +44,7 @@ class ads(models.Model):
     adress=models.CharField(max_length=80 , null=True,blank=True)
     mobile =models.PositiveSmallIntegerField( default='11' , null=True,blank=True,)
     email=models.EmailField(default="ahmed_mag22@yahoo.com" , null=True,blank=True)
-  
+
     def save( self,*args,**kwargs ):
         if  self.sub  :
             self.main= self.sub.main
@@ -58,11 +58,12 @@ class ads(models.Model):
             self.end=self.last.end
 
 
-            
+
         super(ads, self).save(*args,**kwargs)
 
     class Meta:
         ordering = ['-create_date']
+        #get_latest_by='id'
     def __str__(self):
         return str (self.id)
 class catugry(models.Model):
@@ -82,7 +83,7 @@ class catugry(models.Model):
                                                   'main__isnull':False,
                                                   'end__isnull':True }
                                 ,on_delete=models.CASCADE,blank=True,null=True)
-    
+
 
     def save( self,*args,**kwargs ):
         if  self.sub  :
@@ -90,7 +91,7 @@ class catugry(models.Model):
 
         if self.end :
             self.main=self.end.sub.main
-            self.sub=self.end.sub            
+            self.sub=self.end.sub
         super(catugry, self).save(*args,**kwargs)
 
     class Meta:
@@ -134,7 +135,7 @@ education_level=(('1',"Student"),('2',"High-Secondary School "),('3',"Diploma") 
 
 
 class db_car(models.Model):
-    
+
     ad_id= models.ForeignKey(ads , to_field='id' ,on_delete=models.CASCADE,blank=True,null=True)
     payment_option=models.CharField(max_length=1, choices=payment_options ,blank=True,null=True)
     price = models.DecimalField(max_digits=14,decimal_places=4,null=True,blank=True)
@@ -176,7 +177,7 @@ class db_car(models.Model):
     def __str__(self):
         return str (self.ad_id.title)
 class db_car_rent(models.Model):
-   
+
 
     ad_id= models.ForeignKey(ads , to_field='id' ,on_delete=models.CASCADE,blank=True,null=True)
     rent_duration=models.CharField(max_length=1, choices=rent_duration ,blank=True,null=True)

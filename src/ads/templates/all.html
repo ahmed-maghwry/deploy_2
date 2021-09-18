@@ -83,9 +83,11 @@
               <div class="card-body">
                 <h5 class="card-title">{{ad.title}}</h5>
                 <p class="card-text">{{ad.description|truncatewords:3}}</p>
+
               </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">it is for || {{ ad.ad_option }}</li>
+                <li class="list-group-item">cat || {{ ad.main }}</li>
               </ul>
               <div class="card-body">
                 <a class="btn btn-primary" href="{% url 'ads:ads_detail' ad.id  %}#con"  role="button">know More</a>

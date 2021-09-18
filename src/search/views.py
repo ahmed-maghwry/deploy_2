@@ -1,7 +1,7 @@
 
 from django.shortcuts import render , HttpResponse
 from django.shortcuts import get_object_or_404 , redirect
-from ads.models import ads , catugry 
+from ads.models import ads , catugry
 from django.urls import reverse_lazy
 from . forms import *
 from user_profile.models import user_details
@@ -20,6 +20,8 @@ def by_catugry(request ):
                     query="{}={}&".format(key , request.GET.get(key))+query
                 else:pass
             by_catugry_2_complet=ads.objects.filter(main_id=catugry_1).order_by(order_by_data)
+            # by_catugry_2_complet=ads.objects.select_related('main_id').get(main_id=catugry_1).order_by(order_by_data)
+
             paginator = Paginator (by_catugry_2_complet ,2 ) # Show 25 contacts per page.
             page_number = request.GET.get('page')
             by_catugry_2 = paginator.get_page(page_number)
@@ -46,7 +48,7 @@ def by_main_all(request , main_id_):
     main_id_=main_id_
     general_search_form.fields['sub'].queryset = catugry.objects.filter(main_id=main_id_ , sub_id=None).order_by('name')
     general_search_form.fields['end'].queryset = catugry.objects.none()
-    general_search_form.fields['last'].queryset = catugry.objects.none()    
+    general_search_form.fields['last'].queryset = catugry.objects.none()
     main_catugry_q_complet=ads.objects.filter(main_id=main_id_)
     paginator = Paginator (main_catugry_q_complet ,5 ) # Show 25 contacts per page.
     page_number = request.GET.get('page')
@@ -57,7 +59,7 @@ def by_main_all(request , main_id_):
             'general_search_form' : general_search_form,
             'main_id_':main_id_,
             'order_by_form':order_by_form,
-            'user_favoret':user_favoret ,    
+            'user_favoret':user_favoret ,
         }
         print("aaaaa")
     except:
@@ -65,7 +67,7 @@ def by_main_all(request , main_id_):
             'main_catugry_q' : main_catugry_q ,
             'general_search_form' : general_search_form,
             'main_id_':main_id_,
-            'order_by_form':order_by_form,   
+            'order_by_form':order_by_form,
         }
     return render(request, 'by_main_all.html',context)
 

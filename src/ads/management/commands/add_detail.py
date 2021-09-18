@@ -1,7 +1,6 @@
 import datetime
 import random
 from django.core.management.base import BaseCommand
-import random
 from ads.models import *
 
 # payment_options=['Cash','Exchange','Installments','Rent']

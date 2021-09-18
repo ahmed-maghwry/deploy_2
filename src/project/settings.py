@@ -24,6 +24,7 @@ SECRET_KEY = '5vcx5^peselbl)-4-kohom4r*2ns0q4+%p(wec^ih7#*-@326l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+#DEBUG=False
 
 ALLOWED_HOSTS = ['ahmedmag.pythonanywhere.com']
 
@@ -99,7 +100,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-db=1
+db=2
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 if db==2:
     DATABASES = {

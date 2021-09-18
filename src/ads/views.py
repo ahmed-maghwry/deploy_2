@@ -12,6 +12,8 @@ from django.urls import reverse_lazy
 # cat=""# Empty variable use like signal and i think it is not important but i'm afraid to delete it
 # Create your views here.
 def all_ads(request):
+
+
     try:
         if request.user.id != None :
             user=request.user.id
@@ -23,10 +25,13 @@ def all_ads(request):
     order_by_data = request.GET.get('order_by_options', '-create_date' )
     order_by_no_ajax_get.fields["order_by_options"].choices
 
+  #  limit=int(ads.objects.latest('id').id)
+    limit=10
 
-
-    ads_all_complet=ads.objects.only('title','description','ad_option','img').order_by(order_by_data)
-    paginator = Paginator(ads_all_complet ,5 ) # Show 25 contacts per page.
+    ads_all_complet=ads.objects.only('title','description','ad_option','img','main').select_related('main').order_by(order_by_data)
+    #[:limit]
+    paginator = Paginator(ads_all_complet ,50 ) # Show 25 contacts per page.
+    #paginator.count=100000
     page_number = request.GET.get('page')
     ads_all = paginator.get_page(page_number)
     try:
