@@ -1,16 +1,21 @@
 asgiref==3.4.1
 beautifulsoup4==4.9.3
 DateTime==4.3
+dj-database-url==0.5.0
 Django==3.2.6
 django-bootstrap4==1.1.1
 django-crispy-forms==1.9.0
 django-debug-panel==0.8.3
 django-debug-toolbar==3.2.1
 django-debug-toolbar-request-history==0.1.3
-mysqlclient==2.0.3
+django-heroku==0.3.1
+gunicorn==20.1.0
+mysqlclient @ file:///C:/Users/Ahmed/Desktop/dep/test%20origen/Classified-Ads/ads/src/mysqlclient-1.4.6-cp38-cp38-win32.whl
 Pillow==6.2.1
+psycopg2==2.9.1
 pytz==2021.1
 random2==1.0.1
 soupsieve==2.2.1
 sqlparse==0.4.1
+whitenoise==5.3.0
 zope.interface==5.4.0

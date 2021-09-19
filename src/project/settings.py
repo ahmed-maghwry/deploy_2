@@ -11,6 +11,12 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import django_heroku
+
+
+
+django_heroku.settings(locals())
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +32,7 @@ SECRET_KEY = '5vcx5^peselbl)-4-kohom4r*2ns0q4+%p(wec^ih7#*-@326l'
 DEBUG = True
 #DEBUG=False
 
-ALLOWED_HOSTS = ['ahmedmag.pythonanywhere.com']
+ALLOWED_HOSTS = ['ahmedmag.herokuapp.com']
 
 
 # Application definition
@@ -71,6 +77,8 @@ ACCOUNT_EMAIL_REQUIRED = (False)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -168,11 +176,11 @@ MEDIA_URL= '/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR , 'media')
 
 
-INTERNAL_IPS = [
+# INTERNAL_IPS = [
 
-    '154.187.150.200',
+#     '154.187.150.200',
 
-]
+# ]
 
 
 # def custom_show_toolbar(request.META.get('HTTP_X_REAL_IP', None) in INTERNAL_IPS):
@@ -195,3 +203,4 @@ if DEBUG:                                                      # <-- NEW
     import mimetypes                                           # <-- NEW
     mimetypes.add_type("application/javascript", ".js", True)  # <-- NEW
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
