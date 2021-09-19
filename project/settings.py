@@ -166,24 +166,36 @@ USE_L10N = True
 
 USE_TZ = True
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-print(STATIC_ROOT)
+# STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+# STATIC_URL = '/static/'
+
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"))
+
+
+# MEDIA_URL= '/media/'
+# MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
+ 
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
-print(STATICFILES_DIRS)
 
-
-MEDIA_URL= '/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
 
 # STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'staticfiles'))
 # STATICFILES_DIRS = (
