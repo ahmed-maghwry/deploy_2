@@ -13,13 +13,15 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import django_heroku
 
+import dj_database_url
 
 
-django_heroku.settings(locals())
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -176,20 +178,31 @@ USE_TZ = True
 # MEDIA_ROOT=os.path.join(BASE_DIR , 'media')
 
 
+# STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'staticfiles'))
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
 
-
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath("static")))
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-)
+]
+
+
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath("static")))
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
 
 
 
@@ -212,15 +225,18 @@ STATICFILES_DIRS = (
 # DEBUG_TOOLBAR_CONFIG = {'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,}
 
 
-def show_toolbar(request):                                     # <-- NEW
-    return True                                                # <-- NEW
+# def show_toolbar(request):                                     # <-- NEW
+#     return True                                                # <-- NEW
 
-DEBUG_TOOLBAR_CONFIG = {                                       # <-- NEW
-    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,                    # <-- NEW
-}                                                              # <-- NEW
+# DEBUG_TOOLBAR_CONFIG = {                                       # <-- NEW
+#     "SHOW_TOOLBAR_CALLBACK" : show_toolbar,                    # <-- NEW
+# }                                                              # <-- NEW
 
-if DEBUG:                                                      # <-- NEW
-    import mimetypes                                           # <-- NEW
-    mimetypes.add_type("application/javascript", ".js", True)  # <-- NEW
+# if DEBUG:                                                      # <-- NEW
+#     import mimetypes                                           # <-- NEW
+#     mimetypes.add_type("application/javascript", ".js", True)  # <-- NEW
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
+django_heroku.settings(locals())

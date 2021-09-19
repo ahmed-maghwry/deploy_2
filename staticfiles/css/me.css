@@ -1,0 +1,248 @@
+body{color: #4267b2;}
+
+.mynav{ 
+    background: #e3dddd21;
+    margin: 10px;
+    border: 2px solid  #4267b2;
+    border-radius: 15px;
+    padding: 0.5rem 2rem;
+}
+a.nav-link{
+    color: #4267b2 !important;
+    font-size: 16px;
+    margin-right: 33px;
+    font-weight: bold;
+}
+
+.myex{
+    color:#ff5364;
+    font-weight: bold;
+    font-size: 22px;
+    right: 3px;
+    position: relative;
+}
+.myex-all{
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 10px;
+    color: #26b99a !important;
+}
+
+.myex-rot{
+    color: #4267b2;
+    font-size: 31px ;
+}
+
+.mynavcat{
+    background: #e3dddd21;
+    margin: 10px;
+    border: 2px solid  #4267b2;
+    border-radius: 15px;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.mycattitle{margin-top: 30px;}
+.mycatlink{
+    margin-top: 36px !important;
+    margin-bottom: 20px !important;
+}
+.my-log{
+    background: #e3dddd21;
+    margin: 10px;
+    border: 2px solid  #4267b2;
+    border-radius: 15px;
+    padding-top: 25px !important;
+    padding-bottom: 25px !important;
+    margin-top: 40px;
+}
+
+.my-log-row{
+    margin-top: 0px !important ;
+    margin-bottom: -3px !important;
+}
+.my-form-term{
+    margin-top: -5px !important;
+    margin-bottom: 3px !important;
+}
+.my-card-sec{
+    background: #e3dddd21;
+    margin: 10px;
+    border: 2px solid  #4267b2;
+    border-radius: 15px;
+    padding-top: 15px !important;
+    margin-top: 40px;
+}
+.my-footer{
+    background: #e3dddd21;
+    margin: 10px;
+    border: 2px solid  #4267b2;
+    border-radius: 15px;
+    padding-top: 25px !important;
+    margin-top: 40px;
+}
+
+.my-nav-tap{
+
+background-color: #fcfbfb;
+}
+.my-tap-all{
+        border-bottom: 2px solid #5e95e2;
+        margin-bottom: 25px;
+
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link:hover{
+
+
+    /* background-color: #000eff36;
+    border-color: #8e8e8e #8e8e8e #fcfbfb;
+    border-top-right-radius: 20px;
+    font-size: larger;
+    color: #ff0000 !important;
+    box-shadow: 2px 8px 5px -3px #979bfc82; */
+
+    color: #4267b2 !important;
+    font-size: larger;
+    border-bottom: 3px #5e95e2;
+    background-color: #fcfbfb;
+    box-shadow: -8px -4px 9px -4px #979bfc82;
+    margin-bottom: -2px;
+    border: 1px solid;
+    border-top: 2px solid;
+    border-left:2px solid ;
+    border-right: 2px solid;
+    border-bottom: none;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+
+
+
+
+}
+.my-taps{
+margin-right: 0px !important;
+position: relative;
+right: 7px;
+}
+.nav-tabs .nav-link{
+    border:none ;
+}
+.my-taps:hover{
+
+    /* background-color:#000dff07; */
+    background-color:#4267b200;
+    /* box-shadow: 3px -5px 7px -5px #979bfc82; */
+    border: none;
+    /* text-shadow: 0px -4px 10px #979bfc82; */
+    color:#ff5364 !important;
+
+
+
+}
+.nav-link.active{
+    color: blue !important;
+    font-size: 17px;
+
+
+}
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus{background-color:  !important;}
+
+.my-card-respon{
+    margin-bottom: 25px; /* Added */
+}
+.my-card{
+
+    min-height: 550px;
+    max-height: 550px;
+    transition: 0.9s,top ;
+
+}
+.my-card:hover {
+
+    box-shadow :-4px -4px 7px 1px #343a4063 ,
+    4px 4px 7px 1px #343a4063 ;
+
+    transition: 0.9s,top ;
+
+
+}
+
+.my-card-img{
+max-height: 230px;
+min-height: 230px;
+
+    
+}
+
+ .my-content{
+    margin-bottom: -130px !important;
+}
+
+.my-Pagination{
+
+    /* float: right!important;
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px; */
+/* 
+margin-bottom: auto; 
+margin-top: auto;
+margin-bottom: -100px; */
+position: relative;
+}
+
+
+
+/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! product detils  start !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+
+.my-product-detils-container{
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+.main_img{
+    position: relative;
+    left: 17%;
+}
+.my-product-detils{
+    background: #e3dddd21;
+    margin: 10px;
+    border: 2px solid  #4267b2;
+    border-radius: 15px;
+    padding: 0.5rem 2rem;
+    min-height: 531px;
+    /* position: relative; */
+}
+.my-nav-icon{
+    height: auto;
+    width: 40px;
+
+}
+.my-icon{
+
+
+    height: auto;
+    width: 40px;
+    position: relative;
+    top: -30px;
+
+}
+.my-icon:hover {
+
+    transform: scale(1.5);  
+    
+    transition: 0.9s,top ;
+
+
+}
+
+.my-icon {
+
+    transform: scale(1); 
+    transition: 0.9s,top ;
+
+
+}
