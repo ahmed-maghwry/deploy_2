@@ -72,7 +72,7 @@ INSTALLED_APPS = [
 BOOTSTRAP4 = {'horizontal_field_class': 'col-md-2', 'horizontal_label_class': 'col-md-1',
 }
 
-SITE_ID = 2
+SITE_ID = 1
 ACCOUNT_LOGOUT_ON_GET =True
 LOGIN_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
