@@ -244,16 +244,16 @@ STATICFILES_DIRS = (
 # DEBUG_TOOLBAR_CONFIG = {'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,}
 
 
-# def show_toolbar(request):                                     # <-- NEW
-#     return True                                                # <-- NEW
+def show_toolbar(request):                                     # <-- NEW
+    return True                                                # <-- NEW
 
-# DEBUG_TOOLBAR_CONFIG = {                                       # <-- NEW
-#     "SHOW_TOOLBAR_CALLBACK" : show_toolbar,                    # <-- NEW
-# }                                                              # <-- NEW
+DEBUG_TOOLBAR_CONFIG = {                                       # <-- NEW
+    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,                    # <-- NEW
+}                                                              # <-- NEW
 
-# if DEBUG:                                                      # <-- NEW
-#     import mimetypes                                           # <-- NEW
-#     mimetypes.add_type("application/javascript", ".js", True)  # <-- NEW
+if DEBUG:                                                      # <-- NEW
+    import mimetypes                                           # <-- NEW
+    mimetypes.add_type("application/javascript", ".js", True)  # <-- NEW
 
 
 
